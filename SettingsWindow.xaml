@@ -10,5 +10,6 @@
         <Label Content="App Token:" Height="28" HorizontalAlignment="Left" Margin="12,13,0,0" Name="label1" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="82,46,0,0" Name="UserTokenTxt" VerticalAlignment="Top" Width="343"/>
         <Label Content="User Token:" Height="28" HorizontalAlignment="Left" Margin="12,47,0,0" Name="label2" VerticalAlignment="Top" />
+        <Button Content="Test" Height="23" HorizontalAlignment="Left" IsDefault="False" Margin="350,0,0,10" x:Name="buttonTest" VerticalAlignment="Bottom" Width="75" IsCancel="False" Click="buttonTest_Click" />
     </Grid>
 </Window>

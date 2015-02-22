@@ -22,8 +22,7 @@ namespace BluRip
             try
             {
                 InitializeComponent();
-                this.settings = new PushoverSettings(settings);     //Blanks Custom Settings???
-
+                this.settings = new PushoverSettings(settings);
                 checkBoxActivated.IsChecked = this.settings.activated;
                 AppTokenTxt.Text = this.settings.AppToken;
                 UserTokenTxt.Text = this.settings.UserToken;
@@ -62,6 +61,28 @@ namespace BluRip
             {
             }
         }
+
+        private void buttonTest_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var PushoverParameters = new System.Collections.Specialized.NameValueCollection {
+                    { "token", AppTokenTxt.Text},
+                    { "user", UserTokenTxt.Text },
+                    { "message", "BluRip Test Push at " + DateTime.Now}
+                };
+                using (var client = new System.Net.WebClient())
+                {
+                    client.UploadValues("https://api.pushover.net/1/messages.json", PushoverParameters);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to Send Pushover Notification", "Pushover Test",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
     }
 }

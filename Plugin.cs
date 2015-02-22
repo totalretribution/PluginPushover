@@ -76,59 +76,60 @@ namespace BluRip
             try
             {
                 var PushoverParameters = new System.Collections.Specialized.NameValueCollection {
-                    { "token", "aDT1fS598tLF4zSo5vyJ4LFfDMqa8p" },
-                    { "user", "u4PGvu6cJVi1eYcfEJVsLLvXTMDh6y" },
+                    { "token", ((PushoverSettings)settings).AppToken},
+                    { "user", ((PushoverSettings)settings).UserToken },
                     { "message", ""}
                 };
-
+                
+                DateTime now = DateTime.Now;
                 switch (requestPluginType)
                 {
                     case PluginType.BeforeDemux:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started.");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started at " + now);
                         break;
 
                     case PluginType.AfterDemux:
-                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished demultiplexing.");
+                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished demultiplexing at " + now);
                         break;
 
                     case PluginType.BeforeAutoCrop:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started indexing and cropping.");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started indexing and cropping at " + now);
                         break;
 
                     case PluginType.AfterAutoCrop:
-                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished indexing and cropping.");
+                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished indexing and cropping at " + now);
                         break;
 
                     case PluginType.BeforeSubtitle:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started processing subtitles.");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started processing subtitles at " + now);
                         break;
 
                     case PluginType.AfterSubtitle:
-                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished processing subtitles.");
+                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished processing subtitles at " + now);
                         break;
 
                     case PluginType.BeforeEncode:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started encoding.");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started encoding at " + now);
                         break;
 
                     case PluginType.AfterEncode:
-                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished encoding.");
+                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has finished encoding at " + now);
                         break;
 
                     case PluginType.BeforeMux:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started multiplexing.");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has started multiplexing at " + now);
                         break;
 
                     case PluginType.AfterMux:
-                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has Finished multiplexing.");
+                        //PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has Finished multiplexing at " + now);
                         break;
 
                     case PluginType.ErrorEncode:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has ERRORED");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has encountered an error at " + now);
                         break;
 
                     case PluginType.FinishedAll:
-                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has successfully compleated.");
+                        PushoverParameters.Set("message", "BluRip Project: " + project.settings.movieTitle + " has successfully compleated at " + now);
                         break;
 
                 }
@@ -147,12 +148,16 @@ namespace BluRip
 
     public class PushoverSettings : PluginSettingsBase
     {
+        public string AppToken = "";
+        public string UserToken = "";
 
         public PushoverSettings(PluginSettingsBase orig)
             : base(orig)
         {
             try
             {
+                this.AppToken = ((PushoverSettings)orig).AppToken;
+                this.UserToken = ((PushoverSettings)orig).UserToken;
             }
             catch (Exception)
             {
@@ -163,7 +168,5 @@ namespace BluRip
             : base()
         {
         }
-        public String AppToken = "";
-        public String UserToken = "";
     }
 }
